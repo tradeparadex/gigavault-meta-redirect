@@ -1,95 +1,30 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+export const runtime = "edge";
 
-export default function Home() {
+export async function generateMetadata({ params, searchParams }, parent) {
+  // read route params
+  const response = await fetch('https://api.prod.paradex.trade/v1/vaults/summary?address=0x5f43c92dbe4e995115f351254407e7e84abf04cbe32a536345b9d6c36bc750f', {
+    method: 'GET',
+    headers: {},
+  });
+  const data = await response.json();
+  const apr = (data.results[0].last_month_return*100).toFixed(2);
+  console.log(apr);
+
+ 
+  return {
+    title: `Gigavault LP : ${apr}% APR`,
+    description: 'The Liquidity Provider vault powers liquidity across all Paradex perpetuals markets through advanced market-making strategies while accruing platform fees',
+    openGraph: {
+      title: `Gigavault LP ${apr}% APR`,
+      description: 'The Liquidity Provider vault powers liquidity across all Paradex perpetuals markets through advanced market-making strategies while accruing platform fees',
+      images: ['https://cdn.prod.website-files.com/632b1650d518e93de132751a/672d77008484f81e6fe6621b_Paradex-GIGAVAULT.webp'],
+    },
+  }
+}
+ 
+
+export default async function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <div></div>
   );
 }
