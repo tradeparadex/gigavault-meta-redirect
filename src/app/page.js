@@ -17,7 +17,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
     openGraph: {
       title: `Gigavault LP ${apr}% APR`,
       description: 'The Liquidity Provider vault powers liquidity across all Paradex perpetuals markets through advanced market-making strategies while accruing platform fees',
-      images: ['./paradex-gigavault.webp'],
+      images: ['https://gigavault.paradex.trade/paradex-gigavault.webp'],
     },
   }
 }
