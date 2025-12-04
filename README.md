@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gigavault Meta Redirect
+
+A Cloudflare Pages application that generates dynamic metadata for the Gigavault LP page and redirects users to the Paradex app using Server-Side Rendering (SSR).
+
+## Features
+
+- Dynamically fetches vault data from the Paradex API on each request
+- Server-Side Rendering (SSR) to generate HTML with proper metadata tags (title, description, OpenGraph, Twitter cards)
+- Includes APR information in the metadata when available
+- Automatically redirects users to the Paradex vault page
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Deploy to Cloudflare Pages:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run deploy
+```
 
-## Learn More
+Or use the Cloudflare dashboard to connect your repository and deploy automatically.
 
-To learn more about Next.js, take a look at the following resources:
+## How It Works
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The Pages function:
+1. Uses SSR to fetch vault summary data from the Paradex API on each request
+2. Extracts the APR from the last month's return
+3. Generates HTML with dynamic metadata including the APR
+4. Includes a client-side redirect script to send users to the Paradex app
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The `functions/[[path]].js` file handles all routes and performs server-side rendering to ensure search engines and social media crawlers receive the correct metadata.
